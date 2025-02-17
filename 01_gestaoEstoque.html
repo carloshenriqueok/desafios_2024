@@ -14,20 +14,26 @@
     5. Criar um menu (switch case) para o usuário escolher ações repetidamente (entre as funções desenvolvidas) até decidir sair (opção para sair - 0).
     */
 
-    let nomeProduto = prompt(`Nome do produto:`);
 
     function buscarProduto(nome){
-        let produto = "";
-
+        let nomeProduto = prompt(`Nome do produto:`);
         for(let i = 0; i < estoque.length; i++){
             if(estoque[i].nome === nomeProduto){
-                produto = estoque[i].nome;
-                return "Produto encontrado. ID = " + estoque[i].id + " Preço = " + estoque[i].preco.toFixed(2);      
+                return "Produto encontrado. <br> ID = " + estoque[i].id + " <br> Preço = R$" + estoque[i].preco.toFixed(2);      
             }
         }
         return "Produto não encontrado"
     }
 
-    document.write(buscarProduto(nomeProduto));
+    document.write(buscarProduto());
+
+
+    function adicionarEstoque(id, qtd){
+        
+        let idProduto = Number(prompt(`Id do produto: `));
+        let qtdProduto = Number(prompt(`Quantidade de novos produtos:`));
+        
+    }
+
 
 </script>
