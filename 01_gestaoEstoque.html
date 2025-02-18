@@ -25,7 +25,7 @@
         return "Produto não encontrado"
     }
 
-    document.write(buscarProduto());
+   // document.write(buscarProduto());
 
 
     function adicionarEstoque(id, qtd){
@@ -33,7 +33,40 @@
         let idProduto = Number(prompt(`Id do produto: `));
         let qtdProduto = Number(prompt(`Quantidade de novos produtos:`));
         
+        for(let i = 0; i < estoque.length; i++){
+            if(estoque[i].id === idProduto){
+                estoque[i].quantidade += qtdProduto;
+                return `Produto: ${estoque[i].nome}, Quantidade: ${estoque[i].quantidade}`  
+            }
+        }
+        return "ID do produto inválido"  
     }
 
+   // document.write(adicionarEstoque())
 
+    function venderProduto(id, qtd){
+        let idProduto = Number(prompt(`Id do produto: `));
+        let qtdProduto = Number(prompt(`Quantidade de vendas do produto:`));
+
+        let produto = estoque.find(propriedade => propriedade.id == idProduto);
+    
+        if(qtdProduto <= produto.quantidade ){
+            return `Produto: ${produto.nome}, Estoque após as vendas: ${produto.quantidade -= qtdProduto}`
+        }
+
+        else{
+            return `Não há estoque suficiente para a venda, Estoque atual: ${produto.quantidade}`
+        }
+    }
+    // document.write(venderProduto())  
+
+    function calcularValorTotalEstoque(){
+        let valorTotal = 0;
+        for(let i = 0; i < estoque.length; i++){
+             valorTotal += estoque[i].preco * estoque[i].quantidade;
+        }
+        return `Valor total de estoque: R$ ${valorTotal.toFixed(2).replace("." , ",")}`
+    }
+
+    //document.write(calcularValorTotalEstoque());
 </script>
