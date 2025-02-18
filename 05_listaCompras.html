@@ -8,23 +8,59 @@
     4. Criar um loop(while) para permitir ao usuário interagir com as opções até escolher sair.
     */
     
-   function adicionarItem(item){
-        return listaCompras.push(itemAdd);
+
+    function adicionarItem(item){
+        let itemAdd = prompt(`Informe um item para adicionar a lista de compras`);
+        listaCompras.push(itemAdd);
+        return listaCompras;
    }
    
    function removerItem(item){
+        let itemRmvd = prompt(`Informe um item para remover da lista de compras`);
         let removido = "";
 
         let posicao = listaCompras.indexOf(itemRmvd);
         if(itemRmvd >= 0){
-            removido = listaCompras.splice(posicao, 1);
+            return removido = listaCompras.splice(posicao, 1);
         }
         else{
-            removido = "O item não existe na lista de compras";
+            return removido = "O item não existe na lista de compras";
         }
+
+        return removido;
+        
    }
 
    function listarItens(){
-    return 
+    return "Lista de compras atuais \n" + listaCompras.join(", ");
    }
+
+
+    let opcao = 1;
+
+    while(opcao != 0){
+
+        opcao = Number(
+      prompt(`LISTA DE COMPRAS \n 
+    Digite os números a seguir para realizar a função desejada: \n 
+    1 - Adicionar um novo item na lista \n
+    2 - Remover Item da lista \n 
+    3 - Ver lista de compras \n
+    0 - Sair`)
+    );
+
+
+        switch(opcao){
+        case 1:
+            alert(adicionarItem());
+            break;
+        case 2:
+            alert(removerItem());
+            break;
+        case 3:
+            alert(listarItens());
+            break
+        }
+    }
+    alert(`Fim do programa`);
 </script>
