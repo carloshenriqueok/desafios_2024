@@ -11,28 +11,36 @@
 
     function adicionarItem(item){
         let itemAdd = prompt(`Informe um item para adicionar a lista de compras`);
-        listaCompras.push(itemAdd);
-        return listaCompras;
+
+        for(let i = 0; i < listaCompras.length; i++){
+           
+            if(listaCompras[i] !== itemAdd){
+              listaCompras.push(itemAdd);
+              return `"${itemAdd}" foi adicionado a lista de compras!`;
+           } else {
+            return "Ops, parece que o produto já está na lista de compras.";
+           }
+
+        }
    }
    
    function removerItem(item){
         let itemRmvd = prompt(`Informe um item para remover da lista de compras`);
-        let removido = "";
 
         let posicao = listaCompras.indexOf(itemRmvd);
-        if(itemRmvd >= 0){
-            return removido = listaCompras.splice(posicao, 1);
+        if(posicao >= 0){
+            listaCompras.splice(posicao, 1);
+            return `"${itemRmvd}" foi removido da lista de compras`;
+
         }
         else{
-            return removido = "O item não existe na lista de compras";
+            return "O item não existe na lista de compras";
         }
-
-        return removido;
         
    }
 
    function listarItens(){
-    return "Lista de compras atuais \n" + listaCompras.join(", ");
+    return "Lista de compras atual: \n" + listaCompras.sort().join(" - ");
    }
 
 

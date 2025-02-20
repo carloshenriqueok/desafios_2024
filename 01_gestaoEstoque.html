@@ -14,8 +14,63 @@
     5. Criar um menu (switch case) para o usuário escolher ações repetidamente (entre as funções desenvolvidas) até decidir sair (opção para sair - 0).
     */
 
+  function buscarProduto(nome) {
+    let nomeProduto = prompt(`Nome do produto:`);
+    for (let i = 0; i < estoque.length; i++) {
+      if (estoque[i].nome === nomeProduto) {
+        return (
+          "Produto encontrado. \n ID = " +
+          estoque[i].id +
+          " \n Preço = R$" +
+          estoque[i].preco.toFixed(2)
+        );
+      }
+    }
+    return "Produto não encontrado";
+  }
 
-    let opcao = Number(
+  function adicionarEstoque(id, qtd) {
+    let idProduto = Number(prompt(`Id do produto: `));
+    let qtdProduto = Number(prompt(`Quantidade de novos produtos:`));
+
+    for (let i = 0; i < estoque.length; i++) {
+      if (estoque[i].id === idProduto) {
+        estoque[i].quantidade += qtdProduto;
+        return `Produto: ${estoque[i].nome}, Quantidade: ${estoque[i].quantidade}`;
+      }
+    }
+    return "ID do produto inválido";
+  }
+
+  function venderProduto(id, qtd) {
+    let idProduto = Number(prompt(`Id do produto: `));
+    let qtdProduto = Number(prompt(`Quantidade de vendas do produto:`));
+
+    let produto = estoque.find((propriedade) => propriedade.id == idProduto);
+
+    if (qtdProduto <= produto.quantidade) {
+      return `Produto: ${
+        produto.nome
+      }, Estoque após as vendas: ${(produto.quantidade -= qtdProduto)}`;
+    } else {
+      return `Não há estoque suficiente para a venda, Estoque atual: ${produto.quantidade}`;
+    }
+  }
+
+  function calcularValorTotalEstoque() {
+    let valorTotal = 0;
+    for (let i = 0; i < estoque.length; i++) {
+      valorTotal += estoque[i].preco * estoque[i].quantidade;
+    }
+    return `Valor total de estoque: R$ ${valorTotal
+      .toFixed(2)
+      .replace(".", ",")}`;
+  }
+
+  let opcao = 1;
+
+  while (opcao != 0) {
+    opcao = Number(
       prompt(`GESTÃO DE ESTOQUE \n 
     Digite os números a seguir para realizar a função desejada: \n 
     1 - Buscar produto no eestoque \n
@@ -24,9 +79,6 @@
     4 - Ver valor total dos produtos do estoque\n
     0 - Para sair`)
     );
-
-
-    while (opcao != 0){
 
     switch (opcao) {
       case 1:
@@ -41,62 +93,7 @@
       case 4:
         alert(calcularValorTotalEstoque());
         break;
-      case 0:
-        alert(`Fim do programa`);
-        break;
-    }
-
-    function buscarProduto(nome) {
-      let nomeProduto = prompt(`Nome do produto:`);
-      for (let i = 0; i < estoque.length; i++) {
-        if (estoque[i].nome === nomeProduto) {
-          return (
-            "Produto encontrado. <br> ID = " +
-            estoque[i].id +
-            " <br> Preço = R$" +
-            estoque[i].preco.toFixed(2)
-          );
-        }
-      }
-      return "Produto não encontrado";
-    }
-
-    function adicionarEstoque(id, qtd) {
-      let idProduto = Number(prompt(`Id do produto: `));
-      let qtdProduto = Number(prompt(`Quantidade de novos produtos:`));
-
-      for (let i = 0; i < estoque.length; i++) {
-        if (estoque[i].id === idProduto) {
-          estoque[i].quantidade += qtdProduto;
-          return `Produto: ${estoque[i].nome}, Quantidade: ${estoque[i].quantidade}`;
-        }
-      }
-      return "ID do produto inválido";
-    }
-
-    function venderProduto(id, qtd) {
-      let idProduto = Number(prompt(`Id do produto: `));
-      let qtdProduto = Number(prompt(`Quantidade de vendas do produto:`));
-
-      let produto = estoque.find((propriedade) => propriedade.id == idProduto);
-
-      if (qtdProduto <= produto.quantidade) {
-        return `Produto: ${
-          produto.nome
-        }, Estoque após as vendas: ${(produto.quantidade -= qtdProduto)}`;
-      } else {
-        return `Não há estoque suficiente para a venda, Estoque atual: ${produto.quantidade}`;
-      }
-    }
-
-    function calcularValorTotalEstoque() {
-      let valorTotal = 0;
-      for (let i = 0; i < estoque.length; i++) {
-        valorTotal += estoque[i].preco * estoque[i].quantidade;
-      }
-      return `Valor total de estoque: R$ ${valorTotal
-        .toFixed(2)
-        .replace(".", ",")}`;
     }
   }
+  alert(`Fim do programa`);
 </script>

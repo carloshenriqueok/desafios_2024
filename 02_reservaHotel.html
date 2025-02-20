@@ -13,5 +13,18 @@
     5. Criar um loop (while) para o usuário interagir com as opções até escolher sair (opção 0).
     */
 
-    
+
+    function listarQuartosDisponiveis(){
+        let quartoLivre = ""
+
+        for(let i = 0; i < quartos.length; i++){
+            if(quartos[i].disponivel === true){
+                quartoLivre = `Número: ${quartos[i].numero} \n Preço: ${quartos[i].preco} \n Tipo: ${quartos[i].tipo}`
+            }
+        }
+        
+        return quartoLivre
+    }
+
+    alert(listarQuartosDisponiveis());
 </script>
