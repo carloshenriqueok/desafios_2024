@@ -15,16 +15,51 @@
 
 
     function listarQuartosDisponiveis(){
-        let quartoLivre = ""
-
-        for(let i = 0; i < quartos.length; i++){
-            if(quartos[i].disponivel === true){
-                quartoLivre = `Número: ${quartos[i].numero} \n Preço: ${quartos[i].preco} \n Tipo: ${quartos[i].tipo}`
-            }
+        let resultado = "";
+        let quartoLivre = quartos.filter(quarto => quarto.disponivel === true);
+        if(quartoLivre.length > 0){
+            resultado = quartoLivre.map(quarto => `Quarto: ${quarto.numero} - ${quarto.tipo}`).join("\n");
+        } else {
+            resultado = `Ops, parece que não tem quartos disponiveis`
         }
-        
-        return quartoLivre
+
+        return resultado;
+
     }
 
-    alert(listarQuartosDisponiveis());
+    // alert(listarQuartosDisponiveis());
+
+    function reservarQuarto(numero){
+        let escolha = Number(prompt(`O que você deseja:\n1 - Reservar quarto \n2 - Cancelar reserva`));
+        let mensagem = "";
+        if(escolha === 1){
+            let reserva = Number(prompt(`Qual quarto você deseja reservar?`));
+            for(let i =  0; i < quartos.length; i++){
+                if(quartos[i].numero === reserva && quartos[i].disponivel === true){
+                    quartos[i].disponivel = false;
+                    mensagem = "Quarto reservado com sucesso"
+                }
+                else{
+                    mensagem = "Quarto indisponível"
+                    
+                }
+            }
+        }
+
+        else if(escolha === 2){
+            let cancelar = Number(prompt(`Qual quarto você deseja cancelar a reserva?`));
+            for(let i =  0; i < quartos.length; i++){
+                if(quartos[i].numero === cancelar && quartos[i].disponivel === false){
+                    quartos[i].disponivel = true;
+                    return "Reserva cancelada com sucesso";
+                }
+                else if(quartos[i].numero === cancelar && quartos[i].disponivel === true){
+                    return "Este quarto já está disponível"
+                }
+            }
+        }
+        return mensagem;
+    }
+
+    alert(reservarQuarto());
 </script>
