@@ -12,8 +12,81 @@
     */
 
     function calcularMedia(nome){
-        let nome = prompt(`Nome do aluno: `);
+        let alunoNomes = alunos.map(aluno => aluno.nome);
+        let nomeUser = prompt(`Informe o aluno:\n${alunoNomes.join("\n")}`);
+
+        let alunoEncontrado = alunos.find(obj => obj.nome == nomeUser);
+        if(!alunoEncontrado){
+            return "Aluno não encontrado"
+        }
+
+        let notas = alunoEncontrado.notas;
+
+        let media = notas.reduce((notaAnt, notaAtual) => notaAnt + notaAtual, 0) / notas.length;
+         
+        return media;
+    }
+
+    function classificarAluno(nome){
+      let media = calcularMedia(nome);
         
+      if(media >= 7){
+        return "O aluno foi aprovado";
+      } else if(media >= 5){
+        return "O aluno está recuperação";
+      }
+      else {
+        return "O aluno está reprovado";
+      }   
 
     }
+
+   function adicionarNota(nome, nota){
+        let alunoNomes = alunos.map(aluno => aluno.nome);
+        let nomeUser = prompt(`Informe o aluno:\n${alunoNomes.join("\n")}`);
+
+        let alunoEncontrado = alunos.find(obj => obj.nome == nomeUser);
+        if(!alunoEncontrado){
+            return "Aluno não encontrado"
+        }
+
+        let notaAdd = Number(prompt(`informe a nota que deseja adicionar`));
+        if(isNaN(notaAdd)){
+            return `São aceitos apenas números`;
+        }
+        else{
+            alunoEncontrado.notas.push(notaAdd);
+            return `Nota adicionada com sucesso!\nNotas do aluno: ${alunoEncontrado.notas.join(", ")}`
+        }
+   }  
+
+   let opcao = 1;
+   while(opcao != 0){
+    opcao = Number(
+      prompt(`NOTAS ALUNO \n 
+    Digite os números a seguir para realizar a função desejada: \n 
+    1 - Ver média dos alunos \n
+    2 - Ver situação do aluno \n 
+    3 - Adicionar nova nota \n
+    0 - Sair`)
+    );
+
+    switch (opcao) {
+      case 1:
+        alert(calcularMedia());
+        break;
+      case 2:
+        alert(classificarAluno());
+        break;
+      case 3:
+        alert(adicionarNota());
+        break;
+    case 0:
+        alert(`Fim do programa`);
+        break;
+      default:
+        alert("Por favor informe umas das opções");
+    }
+  }
+
 </script>

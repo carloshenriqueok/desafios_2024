@@ -1,11 +1,11 @@
 <script>
-    const quartos = [
-        { numero: 101, tipo: "Standard", disponivel: true, preco: 150 },
-        { numero: 102, tipo: "Luxo", disponivel: true, preco: 300 },
-        { numero: 103, tipo: "Standard", disponivel: false, preco: 150 }
-    ];
-    //Problema: Reserva de Hotel
-    /*
+  const quartos = [
+    { numero: 101, tipo: "Standard", disponivel: true, preco: 150 },
+    { numero: 102, tipo: "Luxo", disponivel: true, preco: 300 },
+    { numero: 103, tipo: "Standard", disponivel: false, preco: 150 },
+  ];
+  //Problema: Reserva de Hotel
+  /*
     1. Criar uma função listarQuartosDisponiveis() que mostra apenas os quartos livres.
     2. Criar uma função reservarQuarto(numero) que altera a disponibilidade do quarto.
     3. Criar uma função cancelarReserva(numero) que libera um quarto ocupado.
@@ -13,53 +13,103 @@
     5. Criar um loop (while) para o usuário interagir com as opções até escolher sair (opção 0).
     */
 
-
-    function listarQuartosDisponiveis(){
-        let resultado = "";
-        let quartoLivre = quartos.filter(quarto => quarto.disponivel === true);
-        if(quartoLivre.length > 0){
-            resultado = quartoLivre.map(quarto => `Quarto: ${quarto.numero} - ${quarto.tipo}`).join("\n");
-        } else {
-            resultado = `Ops, parece que não tem quartos disponiveis`
-        }
-
-        return resultado;
-
+  function listarQuartosDisponiveis() {
+    let resultado = "";
+    let quartoLivre = quartos.filter((quarto) => quarto.disponivel === true);
+    if (quartoLivre.length > 0) {
+      resultado = quartoLivre
+        .map((quarto) => `Quarto: ${quarto.numero} - ${quarto.tipo}`)
+        .join("\n");
+    } else {
+      resultado = `Ops, parece que não tem quartos disponiveis`;
     }
 
-    // alert(listarQuartosDisponiveis());
+    return resultado;
+  }
 
-    function reservarQuarto(numero){
-        let escolha = Number(prompt(`O que você deseja:\n1 - Reservar quarto \n2 - Cancelar reserva`));
-        let mensagem = "";
-        if(escolha === 1){
-            let reserva = Number(prompt(`Qual quarto você deseja reservar?`));
-            for(let i =  0; i < quartos.length; i++){
-                if(quartos[i].numero === reserva && quartos[i].disponivel === true){
-                    quartos[i].disponivel = false;
-                    mensagem = "Quarto reservado com sucesso"
-                }
-                else{
-                    mensagem = "Quarto indisponível"
-                    
-                }
-            }
-        }
+  function reservarQuarto(numero) {
+    let numeroQuarto = Number(
+      prompt(`Informe o número do quarto que deseja reservar`)
+    );
 
-        else if(escolha === 2){
-            let cancelar = Number(prompt(`Qual quarto você deseja cancelar a reserva?`));
-            for(let i =  0; i < quartos.length; i++){
-                if(quartos[i].numero === cancelar && quartos[i].disponivel === false){
-                    quartos[i].disponivel = true;
-                    return "Reserva cancelada com sucesso";
-                }
-                else if(quartos[i].numero === cancelar && quartos[i].disponivel === true){
-                    return "Este quarto já está disponível"
-                }
-            }
-        }
-        return mensagem;
+    let quarto = quartos.find((q) => q.numero === numeroQuarto);
+
+    if (!quarto) {
+      return "Quarto não encontrado";
     }
 
-    alert(reservarQuarto());
+    if (quarto.disponivel === true) {
+      quarto.disponivel = false;
+      return "O quarto foi reservado com sucesso!";
+    } else {
+      return "Quarto indisponível";
+    }
+  }
+
+  function cancelarReserva(numero) {
+    let numeroQuarto = Number(
+      prompt(`Informe o número do quarto que deseja cancelar a reserva`)
+    );
+
+    let quarto = quartos.find((q) => q.numero === numeroQuarto);
+
+    if (!quarto) {
+      return "Quarto não encontrado";
+    }
+
+    if (quarto.disponivel === false) {
+      quarto.disponivel = true;
+      return "A reserva do quarto foi cancelada com sucesso!";
+    } else {
+      return "O quarto ja esta disponivel";
+    }
+  }
+
+  function calcularFaturamento() {
+    let reservas = quartos
+      .filter((quarto) => quarto.disponivel === false)
+      .map((q) => q.preco);
+
+    return (
+      `Faturamento total do hotel: R$` +
+      reservas
+        .reduce((valorAnt, valorAtual) => valorAnt + valorAtual, 0)
+        .toFixed(2)
+        .replace(".", ",")
+    );
+  }
+
+  let opcao = 1;
+
+  while (opcao != 0) {
+    opcao = Number(
+      prompt(`RESERVAS HOTEL \n 
+    Digite os números a seguir para realizar a função desejada: \n 
+    1 - Ver quartos disponíveis \n
+    2 - Reservar quarto \n 
+    3 - Cancelar reserva \n
+    4 - Ver faturamento total do hotel\n
+    0 - Sair`)
+    );
+
+    switch (opcao) {
+      case 1:
+        alert(listarQuartosDisponiveis());
+        break;
+      case 2:
+        alert(reservarQuarto());
+        break;
+      case 3:
+        alert(cancelarReserva());
+        break;
+      case 4:
+        alert(calcularFaturamento());
+        break;
+    case 0:
+        alert(`Fim do programa`);
+        break;
+      default:
+        alert("Por favor informe umas das opções");
+    }
+  }
 </script>

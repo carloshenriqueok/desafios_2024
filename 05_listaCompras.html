@@ -1,54 +1,46 @@
 <script>
-    let listaCompras = ["Arroz", "Feijão", "Leite"];
-    //Problema: Lista de Compras
-    /*
+  let listaCompras = ["Arroz", "Feijão", "Leite"];
+  //Problema: Lista de Compras
+  /*
     1. Criar uma função adicionarItem(item) que adiciona um novo item à lista.
     2. Criar uma função removerItem(item) que remove um item da lista se ele existir.
     3. Criar uma função listarItens() que exibe todos os itens da lista.
     4. Criar um loop(while) para permitir ao usuário interagir com as opções até escolher sair.
     */
-    
 
-    function adicionarItem(item){
-        let itemAdd = prompt(`Informe um item para adicionar a lista de compras`);
+  function adicionarItem(item) {
+    let itemAdd = prompt(`Informe um item para adicionar a lista de compras`);
 
-        for(let i = 0; i < listaCompras.length; i++){
-           
-            if(listaCompras[i] !== itemAdd){
-              listaCompras.push(itemAdd);
-              return `"${itemAdd}" foi adicionado a lista de compras!`;
-           } else {
-            return "Ops, parece que o produto já está na lista de compras.";
-           }
+    for (let i = 0; i < listaCompras.length; i++) {
+      if (listaCompras[i] !== itemAdd) {
+        listaCompras.push(itemAdd);
+        return `"${itemAdd}" foi adicionado a lista de compras!`;
+      } else {
+        return "Ops, parece que o produto já está na lista de compras.";
+      }
+    }
+  }
 
-        }
-   }
-   
-   function removerItem(item){
-        let itemRmvd = prompt(`Informe um item para remover da lista de compras`);
+  function removerItem(item) {
+    let itemRmvd = prompt(`Informe um item para remover da lista de compras`);
 
-        let posicao = listaCompras.indexOf(itemRmvd);
-        if(posicao >= 0){
-            listaCompras.splice(posicao, 1);
-            return `"${itemRmvd}" foi removido da lista de compras`;
+    let posicao = listaCompras.indexOf(itemRmvd);
+    if (posicao >= 0) {
+      listaCompras.splice(posicao, 1);
+      return `"${itemRmvd}" foi removido da lista de compras`;
+    } else {
+      return "O item não existe na lista de compras";
+    }
+  }
 
-        }
-        else{
-            return "O item não existe na lista de compras";
-        }
-        
-   }
-
-   function listarItens(){
+  function listarItens() {
     return "Lista de compras atual: \n" + listaCompras.sort().join(" - ");
-   }
+  }
 
+  let opcao = 1;
 
-    let opcao = 1;
-
-    while(opcao != 0){
-
-        opcao = Number(
+  while (opcao != 0) {
+    opcao = Number(
       prompt(`LISTA DE COMPRAS \n 
     Digite os números a seguir para realizar a função desejada: \n 
     1 - Adicionar um novo item na lista \n
@@ -57,18 +49,22 @@
     0 - Sair`)
     );
 
+    switch (opcao) {
+      case 1:
+        alert(adicionarItem());
+        break;
+      case 2:
+        alert(removerItem());
+        break;
+      case 3:
+        alert(listarItens());
+        break;
 
-        switch(opcao){
-        case 1:
-            alert(adicionarItem());
-            break;
-        case 2:
-            alert(removerItem());
-            break;
-        case 3:
-            alert(listarItens());
-            break
-        }
+      case 0:
+        alert(`Fim do programa`);
+        break;
+      default:
+        alert(`Por favor, informe uma opção valida`)
     }
-    alert(`Fim do programa`);
+  }
 </script>
